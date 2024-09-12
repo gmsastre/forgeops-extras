@@ -1,5 +1,12 @@
 # main.tf - root module
-
+terraform {
+  backend "s3" {
+    bucket         = "forgeops-tfstate"  # El bucket que mencionaste
+    key            = "forgeops-tfstate/terraform.tfstate"  # La ruta dentro del bucket
+    region         = "us-east-1"  # Cambia la región según corresponda
+    encrypt        = true  # Para asegurarte de que el archivo de estado esté cifrado
+  }
+}
 resource "local_file" "clusters" {
   filename             = "${path.module}/clusters.tf"
   file_permission      = "0664"
